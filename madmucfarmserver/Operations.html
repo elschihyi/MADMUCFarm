@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <head>
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <META HTTP-EQUIV="Expires" CONTENT="-1">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        
+    </head>
+    <body>
+        <font size="6">Account Management</font><br>
+        
+        <form action="/deleteUser" method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            Administrators:
+            <table border="1" bgcolor=#6699FF>
+            <tr>
+            {% for admin in adminUsers %}
+                {% if loop.index%6==0  %}
+                    </tr><tr>
+                {% endif %}
+                <td>{{admin.userName}}<button type="submit" name="theUser" value="{{admin.userName}}">Delete</button></td>
+            {% endfor %}
+            </tr>
+            </table>
+            
+            <br>
+            Users:
+            <table border="1" bgcolor=#99FF66><tr>
+            {% for user in users %}
+            {% if loop.index%6==0  %}
+            </tr><tr>
+            {% endif %}
+            <td>{{user.userName}}<button type="submit" name="theUser" value="{{user.userName}}">Delete</button></td>
+            {% endfor %}
+            </tr>
+            </table>
+        </form>
+        <br>
+        
+        <form action="/addUser" method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            Add User:
+            <table border="1">
+                <tr><td bgcolor=#C8C878>User Name: <input type="text" name="userName"></td>
+                    <td bgcolor=#C8C878>Password: <input type="text" name="password"></td>
+                    <td bgcolor=#C8C878>Administrator<input type="checkbox" name="isAdmin"></td>
+                    <td bgcolor=#C8C878><input type="submit" value="submit"></td></tr>
+            </table>
+        </form>
+        
+        
+        <hr>
+        <font size="6">Existning Farms</font><br>
+        <table border="1" bgcolor=#99FF66><tr>
+        {% for farm in farms %}
+            {% if loop.index%6==0  %}
+            </tr><tr>
+            {% endif %}
+            <td valign="top" >Farm Name: <b>{{farm.farmName}}</b> </br>
+            <img src="/image?name={{farm.farmName}}" height="60" width="120"></br><br><br>
+            {% for field in farm.fieldNames %}
+                -Field Name: {{field}} </br>
+            {% endfor %}
+           
+            </td>
+        {% endfor %}
+        </tr>
+        </table>
+        <form id="myForm1" action="/ProcessFarm" enctype='multipart/form-data' method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            <h4>Create A Farm</h4>
+            <p>Please note, a farm name must be unique.</p>
+            <div><label for="farmName">Farm Name: </label><input type="text" id="farmName" name="farmName" required></div>
+            <div><label for="farmImg">Farm Image: </label><input type="file" id="farmImg" name="farmImg" required></div>
+            <div><label>Fields: </label>
+                <input type="text" id="fieldName1" name="fieldName" >
+                <input type="text" id="fieldName2" name="fieldName" style="display:none">
+                <input type="text" id="fieldName3" name="fieldName" style="display:none">
+                <input type="text" id="fieldName4" name="fieldName" style="display:none">
+                <input type="text" id="fieldName5" name="fieldName" style="display:none">
+                <input type="text" id="fieldName6" name="fieldName" style="display:none">
+                <input type="text" id="fieldName7" name="fieldName" style="display:none">
+                <input type="text" id="fieldName8" name="fieldName" style="display:none">
+                <input type="text" id="fieldName9" name="fieldName" style="display:none">
+                <input type="text" id="fieldName10" name="fieldName" style="display:none">
+                <input type="text" id="fieldName11" name="fieldName" style="display:none">
+                <input type="text" id="fieldName12" name="fieldName" style="display:none">
+                <input type="text" id="fieldName13" name="fieldName" style="display:none">
+                <input type="text" id="fieldName14" name="fieldName" style="display:none">
+                <input type="text" id="fieldName15" name="fieldName" style="display:none">
+                <input type="text" id="fieldName16" name="fieldName" style="display:none">
+                <input type="text" id="fieldName17" name="fieldName" style="display:none">
+                <input type="text" id="fieldName18" name="fieldName" style="display:none">
+                <input type="text" id="fieldName19" name="fieldName" style="display:none">
+                <input type="text" id="fieldName20" name="fieldName" style="display:none">
+                <input type="text" id="fieldName21" name="fieldName" style="display:none">
+                <input type="text" id="fieldName22" name="fieldName" style="display:none">
+                <input type="text" id="fieldName23" name="fieldName" style="display:none">
+                <input type="text" id="fieldName24" name="fieldName" style="display:none">
+                <input type="text" id="fieldName25" name="fieldName" style="display:none">
+                <input type="text" id="fieldName26" name="fieldName" style="display:none">
+                <input type="text" id="fieldName27" name="fieldName" style="display:none">
+                <input type="text" id="fieldName28" name="fieldName" style="display:none">
+                <input type="text" id="fieldName29" name="fieldName" style="display:none">
+                <input type="text" id="fieldName30" name="fieldName" style="display:none">
+            </div>
+            <div><button id="addField" type="button">+</button><button id="removeField" type="button">-</button></div>
+            <br>
+            <div><input type="submit" value="Save New Farm"></div><br>
+        </form>
+        <hr>
+        <form id="myForm2" action="/delete"  method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            <h4>Delete A Farm</h4>
+            <p>Please note, a farm name can include upper and lower case letters as well as blank spaces.</p>
+            <div><label>Farm Name:</label><input type="text" id="name" name="name" required>
+            <input type="submit" value="Delete Farm"></div>
+        </form>
+        <hr>
+        <br>
+        <form action="/report" method="post">
+             <input type="hidden" name="token" value="{{token}}">
+             <input type="submit" value="Report">
+        </form>
+        <br>
+        <a href="http://usaskwef889.appspot.com/seed">Seed Templete</a><br>
+        <a href="http://usaskwef889.appspot.com/chemical">Chemical Templete</a><br>
+        <form action="/logout" method="get">
+            <input type="hidden" name="token" value="{{token}}">
+            <input type="submit" value="Logout">
+        </form>
+        
+       
+    </body>
+    <script>
+        var fieldCount = 1;
+        
+        $(document).ready(function() {
+                          
+                          
+                          $("#addField").click(function() {
+                                               
+                                               
+                                               fieldCount += 1;
+                                               var field = "#fieldName" + fieldCount.toString();
+                                               $(field).show('fast');
+                                               });
+                          
+                          $("#removeField").click(function() {
+                                                  
+                                                  
+                                                  
+                                                  var field = "#fieldName" + fieldCount.toString();
+                                                  $(field).hide('fast');
+                                                  fieldCount -= 1;
+                                                  });
+                          
+                          $("#myForm1").submit(function() {
+                                               
+                                               var ext = $("#farmImg").val().split('.').pop().toLowerCase();
+                                               
+                                               for(var i  = 1; i <= 30; i++){
+                                               if($("#fieldName"+i).val().length < 1)
+                                               $("#fieldName"+i).remove();
+                                               }
+                                               
+                                               if($.inArray(ext, ['jpg']) == -1) {
+                                               alert('invalid image extension!');
+                                               return false;
+                                               } else if ($("#farmName").val().indexOf('.') !== -1) {
+                                               alert('Farm name must not have a period within it.');
+                                               return false;
+                                               } else {
+                                               return true;
+                                               }
+                                               });
+                          
+                          
+                          });
+                          
+                          
+    </script>
+</html>
+{% endautoescape %}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+    <body>
+        <hr>
+        
+        <form id="myForm1" action="/ProcessFarm" enctype='multipart/form-data' method="post">
+            <h4>Create A Farm</h4>
+            <p>Please note, a farm name must be unique.</p>
+            <div><label for="farmName">Farm Name: </label><input type="text" id="farmName" name="farmName" required></div>
+            <div><label for="farmImg">Farm Image: </label><input type="file" id="farmImg" name="farmImg" required></div>
+            <div><label>Fields: </label>
+                <input type="text" id="fieldName1" name="fieldName" >
+                <input type="text" id="fieldName2" name="fieldName" style="display:none">
+                <input type="text" id="fieldName3" name="fieldName" style="display:none">
+                <input type="text" id="fieldName4" name="fieldName" style="display:none">
+                <input type="text" id="fieldName5" name="fieldName" style="display:none">
+                <input type="text" id="fieldName6" name="fieldName" style="display:none">
+                <input type="text" id="fieldName7" name="fieldName" style="display:none">
+                <input type="text" id="fieldName8" name="fieldName" style="display:none">
+                <input type="text" id="fieldName9" name="fieldName" style="display:none">
+                <input type="text" id="fieldName10" name="fieldName" style="display:none">
+                <input type="text" id="fieldName11" name="fieldName" style="display:none">
+                <input type="text" id="fieldName12" name="fieldName" style="display:none">
+                <input type="text" id="fieldName13" name="fieldName" style="display:none">
+                <input type="text" id="fieldName14" name="fieldName" style="display:none">
+                <input type="text" id="fieldName15" name="fieldName" style="display:none">
+                <input type="text" id="fieldName16" name="fieldName" style="display:none">
+                <input type="text" id="fieldName17" name="fieldName" style="display:none">
+                <input type="text" id="fieldName18" name="fieldName" style="display:none">
+                <input type="text" id="fieldName19" name="fieldName" style="display:none">
+                <input type="text" id="fieldName20" name="fieldName" style="display:none">
+                <input type="text" id="fieldName21" name="fieldName" style="display:none">
+                <input type="text" id="fieldName22" name="fieldName" style="display:none">
+                <input type="text" id="fieldName23" name="fieldName" style="display:none">
+                <input type="text" id="fieldName24" name="fieldName" style="display:none">
+                <input type="text" id="fieldName25" name="fieldName" style="display:none">
+                <input type="text" id="fieldName26" name="fieldName" style="display:none">
+                <input type="text" id="fieldName27" name="fieldName" style="display:none">
+                <input type="text" id="fieldName28" name="fieldName" style="display:none">
+                <input type="text" id="fieldName29" name="fieldName" style="display:none">
+                <input type="text" id="fieldName30" name="fieldName" style="display:none">
+            </div>
+            <div><button id="addField" type="button">+</button><button id="removeField" type="button">-</button></div>
+            <br>
+            
+            <div><input type="submit" value="Save New Farm"></div>
+        </form>
+        <hr>
+        <form id="myForm2" action="/delete"  method="post">
+            <h4>Delete A Farm</h4>
+            <p>Please note, a farm name can include upper and lower case letters as well as blank spaces.</p>
+            <div><label>Farm Name:</label><input type="text" id="name" name="name" required>
+            <input type="submit" value="Delete Farm"></div>
+        </form>
+        <hr>
+        <br>
+        <a href="/data">View JSON Data</a>
+        
+        
+    </body>
+    
+    <script>
+        var fieldCount = 1;
+        
+        $(document).ready(function() {
+            
+                          
+                          $("#addField").click(function() {
+                                               
+                                               
+                                               fieldCount += 1;
+                                               var field = "#fieldName" + fieldCount.toString();
+                                               $(field).show('fast');
+                                               });
+                          
+                          $("#removeField").click(function() {
+                                               
+                                               
+                                               
+                                               var field = "#fieldName" + fieldCount.toString();
+                                               $(field).hide('fast');
+                                                  fieldCount -= 1;
+                                               });
+                          
+                          $("#myForm1").submit(function() {
+                                              
+                                              var ext = $("#farmImg").val().split('.').pop().toLowerCase();
+                                              
+                                              for(var i  = 1; i <= 30; i++){
+                                                if($("#fieldName"+i).val().length < 1)
+                                                    $("#fieldName"+i).remove();
+                                              }
+                                              
+                                              if($.inArray(ext, ['jpg']) == -1) {
+                                                alert('invalid image extension!');
+                                                return false;
+                                               } else if ($("#farmName").val().indexOf('.') !== -1) {
+                                                alert('Farm name must not have a period within it.');
+                                                return false;
+                                               } else {
+                                                return true;
+                                              }
+                                              });
+                          
+                          
+        });
+        
+        
+    </script>
+</html>
+{% endautoescape %}

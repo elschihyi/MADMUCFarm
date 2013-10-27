@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <head>
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <META HTTP-EQUIV="Expires" CONTENT="-1">
+    </head>
+    <body>
+        <font size="6">Account Management</font><br>
+        
+        <form action="/deleteUser" method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            Administrators:
+            <table border="1" bgcolor=#6699FF>
+            <tr>
+            {% for admin in adminUsers %}
+                {% if loop.index%6==0  %}
+                    </tr><tr>
+                {% endif %}
+                <td>{{admin.userName}}<button type="submit" name="theUser" value="{{admin.userName}}">Delete</button></td>
+            {% endfor %}
+            </tr>
+            </table>
+            
+            <br>
+            Users:
+            <table border="1" bgcolor=#99FF66><tr>
+            {% for user in users %}
+            {% if loop.index%6==0  %}
+            </tr><tr>
+            {% endif %}
+            <td>{{user.userName}}<button type="submit" name="theUser" value="{{user.userName}}">Delete</button></td>
+            {% endfor %}
+            </tr>
+            </table>
+        </form>
+        <br>
+        
+        <form action="/addUser" method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            Add User:
+            <table border="1">
+                <tr><td bgcolor=#C8C878>User Name: <input type="text" name="userName"></td>
+                    <td bgcolor=#C8C878>Password: <input type="text" name="password"></td>
+                    <td bgcolor=#C8C878>Administrator<input type="checkbox" name="isAdmin"></td>
+                    <td bgcolor=#C8C878><input type="submit" value="submit"></td></tr>
+            </table>
+        </form>
+        
+        
+        <hr>
+        <form action="/report" method="post">
+             <input type="hidden" name="token" value="{{token}}">
+             <input type="submit" value="Report">
+        </form>
+        <br>
+        <a href="http://madmuctut1.appspot.com">Farm Management</a><br>
+        <a href="http://usaskwef889.appspot.com/seed">Seed Templete</a><br>
+        <a href="http://usaskwef889.appspot.com/chemical">Chemical Templete</a><br>
+        <form action="/logout" method="get">
+            <input type="hidden" name="token" value="{{token}}">
+            <input type="submit" value="Logout">
+        </form>
+        
+       
+    </body>
+</html>
+{% endautoescape %}

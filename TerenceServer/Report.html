@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <head>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
+        <script language="JavaScript">
+            
+            function transferCSV(){
+                
+                var r  = 0;
+                csvout = window.document ;
+                numofRows = gTable.rows.length-1;
+                numofCells =  gTable.rows[0].cells.length-1    //
+                var rowcsv= [numofRows];
+                var cntrows = 0;
+                for ( r == 0; r <= numofRows; r++) {
+                    var c =0;
+                    tempdata = "";
+                    for (c == 0; c<=numofCells; c++) {
+                        if (c != numofCells) {
+                            tempdata+= gTable.rows[r].cells[c].innerText + ",";
+                        }else{
+                            tempdata+= gTable.rows[r].cells[c].innerText + "<br>";
+                        }
+                    }
+                    rowcsv[r] = tempdata
+                }
+                csvout.open("text/html");
+                var rowcnt = 0;
+                for (rowcnt == 0; rowcnt<= rowcsv.length-1; rowcnt++){
+                    csvout.write(rowcsv[rowcnt]);
+                } csvout.close();
+            }
+        </script>
+    </head>
+    <body>
+        <font size="6">Bin</font><br>
+        <table border="1" id="gTable">
+            <tr><td>Bin #</td><td>Bin Size</td><td>Bushel</td><td>Crop Kind</td><td>% Moister</td><tr>
+            {% for bin in bins %}
+            <tr><td>{{bin.binID}}</td><td>{{bin.binSize}}</td><td>{{bin.bushel}}</td><td>{{bin.crop}}</td><td>{{bin.moister}}</td></tr>
+            {% endfor %}
+        </table>
+        <button onclick="transferCSV()">Try it</button>
+        <form action="/operations" method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            <input type="submit" value="Back">
+        </form>
+        <br>
+        <form action="/logout" method="get">
+            <input type="hidden" name="token" value="{{token}}">
+            <input type="submit" value="Logout">
+        </form>
+    </body>
+</html>
+{% endautoescape %}
