@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <head>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
+    <script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.1.min.js" > </script>
+    <script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script>
+    </head>
+    <body>
+        <form action="/logout" method="get">
+            <input type="hidden" name="token" value="{{token}}">
+            <input type="submit" value="Logout">
+        </form>
+        <font size="6">Farm Report</font><br>
+        <table border="1" id="farmtable">
+            <tr><td>LOCATIN</td><td>FIELD NAME</td><td>DATE</td><td>FIELD PART(note)</td><td>OPERATION</td><td>IMPLEMENT USED</td><td>DEPTH</td><td>SEED TYPE</td><td>SEED NAME</td><td>SEED RATE</td><td>SEED TRT.</td><td>CHEMICAL TYPE</td><td>CHEMICAL RATE</td><td>YIELD</td><tr>
+                {% for seed in seeds %}
+                <tr><td>{{seed.farmName}}</td><td>{{seed.fieldName}}</td><td>{{seed.seedDate}}</td><td>{{seed.notes}}</td><td>Seed</td><td>{{seed.tool}}</td><td>{{seed.seedDepth}}</td><td>{{seed.seedType}}</td><td>{{seed.varietyName}}</td><td>{{seed.seedRate}}</td><td>{{seed.seedTreatment}}</td><td>11-51-0/NH3</td><td>{{seed.NH3}} /{{seed._11_52_20}}</td><td></td></tr>
+                {% endfor %}
+                {% for chemical in chemicals %}
+                <tr><td>{{chemical.farmName}}</td><td>{{chemical.fieldName}}</td><td>{{chemical.chemicalDate}}</td><td>{{chemical.notes}}</td><td>Chemical Ap</td><td>{{chemical.tool}}</td><td></td><td></td><td></td><td></td><td></td><td>{{chemical.chemicalType}}</td><td>{{chemical.chemicalRate}}</td><td></td></tr>
+                {% endfor %}
+        </table>
+        <button onclick="$('#farmtable').table2CSV()">CSV File</button>
+        <form action="/operations" method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            <input type="submit" value="Back">
+        </form>
+        <br>
+        
+    </body>
+</html>
+{% endautoescape %}

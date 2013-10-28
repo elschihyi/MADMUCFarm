@@ -652,6 +652,26 @@ class BinReport(webapp2.RequestHandler):
         template= JINJA_ENVIRONMENT.get_template('BinReport.html')
         self.response.write(template.render(template_values))
 
+class FarmReport(webapp2.RequestHandler):
+    def post(self):
+        if (not validToken(self.request.get('token'))):
+            template_values={
+                'invalidUser': True
+            }
+            template= JINJA_ENVIRONMENT.get_template('Login.html')
+            self.response.write(template.render(template_values))
+            return
+        
+        template_values={
+            'seeds':SeedObject().all().filter("farmName =", self.request.get('farmName')),
+            'chemicals':ChemicalObject().all().filter("farmName =", self.request.get('farmName')),
+            'bins': Bin.query().order(Bin.binID),
+            'token': getToken()
+        }
+        template= JINJA_ENVIRONMENT.get_template('FarmReport.html')
+        self.response.write(template.render(template_values))
+
+
 class Operations(webapp2.RequestHandler):
     def post(self):
         if (not validToken(self.request.get('token'))):
@@ -1504,6 +1524,7 @@ application = webapp2.WSGIApplication([
                                        ('/uploadRainGuage',recieveRainGuage),
                                        ('/downloadRainGuage',sentRainGuage),
                                        ('/binreport',BinReport),
+                                       ('/farmreport',FarmReport),
                                        ('/operations',Operations),
                                        ('/ProcessFarm',ProcessFarm),
                                        ('/delete', DeleteImage),
