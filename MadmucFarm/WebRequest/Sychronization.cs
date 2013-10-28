@@ -331,6 +331,22 @@ namespace MadmucFarm
 							DBConnection.dropFieldTable ();
 							DBConnection.dropRainGaugeTable ();
 							DBConnection.dropBinTable ();
+
+							var db = LocalStorage.getLocalStorageManager ().getLocalDB ();
+							db.DropTable<SeedDB> ();
+							db.CreateTable<SeedDB> ();
+							db.DropTable<SeedTemplate> ();
+							db.CreateTable<SeedTemplate> ();
+							db.DropTable<ChemicalDB> ();
+							db.CreateTable<ChemicalDB> ();
+							db.DropTable<ChemicalTemplate>();
+							db.CreateTable<ChemicalTemplate> ();
+							db.DropTable<HarvestData> ();
+							db.DropTable<CultivationData> ();
+							db.DropTable<SoilTestData> ();
+							db.Close ();
+
+
 							DBConnection.insertBin ();
 						}
 						continue;

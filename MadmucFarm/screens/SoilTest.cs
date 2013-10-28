@@ -82,7 +82,7 @@ namespace MadmucFarm
 					alert.Message = "No internet connection found. Your data has been saved to the device. Please try to sync later when you have a connection.";
 				} else {
 					//Connection available, begin sync with server.
-					var response = webClient.UploadString ("http://madmuctut1.appspot.com/SoilTest",
+					var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/SoilTest",
 					                                       "field=" + fieldID +
 					                                       "&notes=" + notes.Value +
 					                                       "&stamp=" + stamp
@@ -116,12 +116,6 @@ namespace MadmucFarm
 			if(Global.isAdmin)
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (button), true);
 
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
 			//grab from database
 			var q = from x in sql.Table<SoilTestData> ()
 				where x.DbField == this.fieldID
@@ -136,9 +130,8 @@ namespace MadmucFarm
 
 			}
 
-
-
 		}
+
 
 
 	}

@@ -59,8 +59,13 @@ namespace MadmucFarm
 
 					new UIAlertView ("Alert", "No internet connection detected. Please try again later.", null, "OK", null).Show ();
 				}else {
+					//sync farm
+					var sync=new Synchronization();
+					sync.downloadFarm();
+
 					LocalStorage.getLocalStorageManager().sychAllUnsychSeed();
 					LocalStorage.getLocalStorageManager().sychAllUnsychChemical();
+
 
 					CreateTables();
 
@@ -74,11 +79,8 @@ namespace MadmucFarm
 					DownloadCultivation();
 					DownloadSoilTest();
 
-					var sync=new Synchronization();
 
-					//sync farm
-					sync.downloadFarm();
-		
+
 					//sync is just those onject have upload flag true;
 					sync.syncBin();
 					sync.syncField();
@@ -97,8 +99,13 @@ namespace MadmucFarm
 
 						new UIAlertView ("Alert", "No internet connection detected. Please try again later.", null, "OK", null).Show ();
 					}else {
+						//sync farm
+						var sync=new Synchronization();
+						sync.downloadFarm();
+
 						LocalStorage.getLocalStorageManager().sychAllUnsychSeed();
 						LocalStorage.getLocalStorageManager().sychAllUnsychChemical();
+
 
 						CreateTables();
 
@@ -112,10 +119,7 @@ namespace MadmucFarm
 						DownloadCultivation();
 						DownloadSoilTest();
 
-						var sync=new Synchronization();
 
-						//sync farm
-						sync.downloadFarm();
 
 						//sync is just those onject have upload flag true;
 						sync.syncBin();
@@ -208,7 +212,7 @@ namespace MadmucFarm
 					select x; 
 
 			foreach (var obj in query) {
-				var response = webClient.UploadString ("http://madmuctut1.appspot.com/Harvest",
+				var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/Harvest",
 				                                       "field=" + obj.DbField +
 				                                       "&date=" + obj.DbDate.ToLongDateString() +
 				                                       "&implement=" + obj.DbImplement +
@@ -243,7 +247,7 @@ namespace MadmucFarm
 					select x; 
 
 			foreach (var obj in query) {
-				var response = webClient.UploadString ("http://madmuctut1.appspot.com/Cultivation",
+				var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/Cultivation",
 				                                       "field=" + obj.DbField +
 				                                       "&date=" + obj.DbDate.ToLongDateString() +
 				                                       "&implement=" + obj.DbImplement +
@@ -276,7 +280,7 @@ namespace MadmucFarm
 					select x; 
 
 			foreach (var obj in query) {
-				var response = webClient.UploadString ("http://madmuctut1.appspot.com/SoilTest",
+				var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/SoilTest",
 				                                       "field=" + obj.DbField +
 				                                       "&notes=" + obj.DbNotes +
 				                                       "&stamp=" + obj.DbTimeStamp
@@ -320,7 +324,7 @@ namespace MadmucFarm
 			ser.WriteObject (stream, harvests);
 			stream.Position = 0;
 
-			var response = webClient.UploadString ("http://madmuctut1.appspot.com/HarvestDownload", reader.ReadToEnd());
+			var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/HarvestDownload", reader.ReadToEnd());
 			var value = JsonObject.Parse (response);
 			foreach (var val in value) {
 				var harvestData = new HarvestData ();
@@ -370,13 +374,14 @@ namespace MadmucFarm
 			ser.WriteObject (stream, cultivations);
 			stream.Position = 0;
 
-			var response = webClient.UploadString ("http://madmuctut1.appspot.com/CultivationDownload", reader.ReadToEnd());
+			var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/CultivationDownload", reader.ReadToEnd());
 			var value = JsonObject.Parse (response);
 			foreach (var val in value) {
 				var cultivationData = new CultivationData ();
 				cultivationData.DbField = ((JsonValue)val) ["field"];
 				cultivationData.DbDate = DateTime.Parse(((JsonValue)val)["date"]);
 				cultivationData.DbImplement = ((JsonValue)val)["implement"];
+				cultivationData.DbDepth = ((JsonValue)val) ["depth"];
 				cultivationData.DbNotes = ((JsonValue)val)["notes"];
 				cultivationData.DbTimeStamp = ((JsonValue)val)["stamp"];
 				cultivationData.DbUpdate = false;
@@ -417,7 +422,7 @@ namespace MadmucFarm
 			ser.WriteObject (stream, soiltests);
 			stream.Position = 0;
 
-			var response = webClient.UploadString ("http://madmuctut1.appspot.com/SoilTestDownload", reader.ReadToEnd());
+			var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/SoilTestDownload", reader.ReadToEnd());
 			var value = JsonObject.Parse (response);
 			foreach (var val in value) {
 				var soiltestData = new SoilTestData ();

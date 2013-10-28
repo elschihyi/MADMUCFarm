@@ -1,0 +1,53 @@
+<html>
+	<head>
+        <title>Template Edit</title>
+	</head>
+	<style type = "text/css">
+        .input
+        {
+            position: absolute;
+            left: 170px;
+        }
+    .link
+    {
+        margin-left:5px;
+        margin-right:5px;
+    }
+	</style>
+	<script>
+        
+        </script>
+	<body>
+        <div>
+            <form id="send" action="/savechemicaltemplate">
+                <input type="hidden" name="token" value="{{token}}">
+                <h3>Chemical Template</h3>
+                <p>
+                <label for="name">Template Name *</label>
+                <input id="name" type="text" name="name" value="{{templateName}}" readonly="readonly"  class="input"/>
+                </p>
+                
+                <p>
+                <label for="chemicalType">Chemical Type *</label>
+                <input id="chemicalType" type="text" name="chemicalType" value="{{chemicalType}}"  class="input"/>
+                </p>
+                
+                <p>
+                <label for="tool">Implemented Used *</label>
+                <input id="tool" type="text" name="tool" value="{{tool}}" class="input"/>
+                </p>
+                
+                <p>
+                <label for="chemicalRate"> Chemical Rate (lbs/ac) *</label>
+                <input id="chemicalRate" type="text" name="chemicalRate" value="{{chemicalRate}}" class="input"/>
+                </p>
+                
+                <p>
+                <button id="submit" type="submit">Update</button>
+                </p>
+            </form>
+            
+        </div>
+	</body>
+	
+</html>

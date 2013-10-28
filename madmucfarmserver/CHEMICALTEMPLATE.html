@@ -1,0 +1,66 @@
+<html>
+	<head>
+        <title>Template Dashboard</title>
+	</head>
+	<style type = "text/css">
+        .input
+        {
+            position: absolute;
+            left: 170px;
+        }
+    
+    .link
+    {
+        margin-left:5px;
+        margin-right:5px;
+    }
+	</style>
+	<script>
+        
+        </script>
+	<body>
+        <div>
+            <form action = "/operations" method="post">
+                <input type="hidden" name="token" value="{{token}}">
+                <button type="submit"> Go Back Main Menu</button>
+            </form>
+        </div>
+        <div>
+            <form id="send" action="/savechemicaltemplate">
+                <input type="hidden" name="token" value="{{token}}">
+                <h3>Chemical Template</h3>
+                <p>
+                <label for="name">Template Name *</label>
+                <input id="name" type="text" name="name" value=""  class="input"/>
+                </p>
+                
+                <p>
+                <label for="chemicalType">Chemical Type *</label>
+                <input id="chemicalType" type="text" name="chemicalType" value=""  class="input"/>
+                </p>
+                
+                <p>
+                <label for="tool">Implemented Used *</label>
+                <input id="tool" type="text" name="tool" value="" class="input"/>
+                </p>
+                
+                <p>
+                <label for="chemicalRate"> Chemical Rate (lbs/ac) *</label>
+                <input id="chemicalRate" type="text" name="chemicalRate" value="" class="input"/>
+                </p>
+                
+                <p>
+                <button id="submit" type="submit" onclick="reloadPage()" = >Submit</button>
+                </p>
+            </form>
+        </div>
+        
+        <hr>
+        
+        <div>
+            <h3>Existing Templates</h3>
+            {{body}}
+        </div>
+	</body>
+	
+</html>

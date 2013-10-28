@@ -35,7 +35,8 @@ namespace MadmucFarm
 			Root = new RootElement ("Chemical");
 
 			saveBtn = new UIBarButtonItem (UIBarButtonSystemItem.Save);
-			this.NavigationItem.RightBarButtonItem =saveBtn;
+			if(Global.isAdmin)
+				this.NavigationItem.RightBarButtonItem =saveBtn;
 
 			initializeUserInterface ();
 		}
@@ -73,6 +74,7 @@ namespace MadmucFarm
 			Section chemicalDateS = new Section ("Chemical Date");
 			var now = DateTime.Now;
 			this.chemicalDate = new DateElement ("", now);
+			this.chemicalDate.BackgroundColor = UIColor.White;
 			chemicalDateS.Add (this.chemicalDate);
 
 			// 2. Implemented Used

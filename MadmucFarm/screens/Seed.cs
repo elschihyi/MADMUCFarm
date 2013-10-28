@@ -57,7 +57,8 @@ namespace MadmucFarm
 			Root = new RootElement ("Seed");
 
 			saveBtn = new UIBarButtonItem (UIBarButtonSystemItem.Save);
-			this.NavigationItem.RightBarButtonItem =saveBtn;
+			if(Global.isAdmin)
+				this.NavigationItem.RightBarButtonItem =saveBtn;
 
 			initializeUserInterface ();
 		}
@@ -97,6 +98,7 @@ namespace MadmucFarm
 			// 1. Seed Date
 			Section seedDateS = new Section ("Seed Date");
 			this.seedDate = new DateElement ("", DateTime.Now);
+			this.seedDate.BackgroundColor = UIColor.White;
 			seedDateS.Add (this.seedDate);
 
 			// 2. Seed Type

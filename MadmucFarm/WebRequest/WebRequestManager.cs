@@ -33,7 +33,7 @@ namespace MadmucFarm
 
 			using(WebClient webClient = new WebClient())
 			{
-				var url = "http://usaskwef889.appspot.com/downloadseedtemplate";
+				var url = "http://madmucfarmserver.appspot.com/downloadseedtemplate";
 				//var url = "http://localhost:11080/downloadseedtemplate";
 			
 
@@ -67,7 +67,7 @@ namespace MadmucFarm
 			localdb.cleanTemplates (2);
 			using(WebClient webClient = new WebClient())
 			{
-				var url = "http://usaskwef889.appspot.com/downloadchemicaltemplate";
+				var url = "http://madmucfarmserver.appspot.com/downloadchemicaltemplate";
 				//var url = "http://localhost:11080/downloadchemicaltemplate";
 				var content = webClient.DownloadString (url);
 				var contentJson = JsonObject.Parse (content);
@@ -98,12 +98,12 @@ namespace MadmucFarm
 			var url = "";
 
 			if(obj is SeedDB){
-				url = "http://usaskwef889.appspot.com/uploadseed";
+				url = "http://madmucfarmserver.appspot.com/uploadseed";
 				//url = "http://localhost:11080/uploadseed";
 			}
 
 			if (obj is ChemicalDB){
-				url = "http://usaskwef889.appspot.com/uploadchemical";
+				url = "http://madmucfarmserver.appspot.com/uploadchemical";
 				//url = "http://localhost:11080/uploadchemical";
 			}
 			Console.Out.WriteLine ("url : {0}", url);
@@ -127,7 +127,7 @@ namespace MadmucFarm
 			var unsyncSeedList = new List<SeedDB> ();
 
 			using (WebClient webclient = new WebClient()) {
-				var url = "http://usaskwef889.appspot.com/downloadallseed";
+				var url = "http://madmucfarmserver.appspot.com/downloadallseed";
 
 				webclient.Headers ["Content-type"] = "application/json";
 				webclient.Encoding = Encoding.UTF8;
@@ -165,7 +165,7 @@ namespace MadmucFarm
 			var unsyncChemicalList = new List<ChemicalDB> ();
 
 			using (WebClient webclient = new WebClient()) {
-				var url = "http://usaskwef889.appspot.com/downloadallchemical";
+				var url = "http://madmucfarmserver.appspot.com/downloadallchemical";
 
 				//url = "http://localhost:11080/downloadchemical";
 
@@ -205,7 +205,7 @@ namespace MadmucFarm
 			if (checkList.Count > 0) {
 				if (checkList [0].type == "seed") {
 					using (WebClient webclient = new WebClient()) {
-						var url = "http://usaskwef889.appspot.com/downloadseed";
+						var url = "http://madmucfarmserver.appspot.com/downloadseed";
 
 						//url = "http://localhost:11080/downloadseed";
 
@@ -243,7 +243,7 @@ namespace MadmucFarm
 				if (checkList [0].type == "chemical") {
 
 					using (WebClient webclient = new WebClient()) {
-						var url = "http://usaskwef889.appspot.com/downloadchemical";
+						var url = "http://madmucfarmserver.appspot.com/downloadchemical";
 
 						//url = "http://localhost:11080/downloadchemical";
 

@@ -8,11 +8,14 @@
         
     </head>
     <body>
-        <font size="6">Account Management</font><br>
-        
+        <form action="/logout" method="get">
+            <input type="hidden" name="token" value="{{token}}">
+            <input type="submit" value="Logout">
+        </form>
+        <font size="6">Account Management</font>
         <form action="/deleteUser" method="post">
             <input type="hidden" name="token" value="{{token}}">
-            Administrators:
+            <br><font size="4">Administrators:</font>
             <table border="1" bgcolor=#6699FF>
             <tr>
             {% for admin in adminUsers %}
@@ -24,8 +27,7 @@
             </tr>
             </table>
             
-            <br>
-            Users:
+            <br><font size="4">Users:</font>
             <table border="1" bgcolor=#99FF66><tr>
             {% for user in users %}
             {% if loop.index%6==0  %}
@@ -36,14 +38,13 @@
             </tr>
             </table>
         </form>
-        <br>
         
         <form action="/addUser" method="post">
             <input type="hidden" name="token" value="{{token}}">
-            Add User:
+            <br><font size="4">Add User:</font>
             <table border="1">
                 <tr><td bgcolor=#C8C878>User Name: <input type="text" name="userName"></td>
-                    <td bgcolor=#C8C878>Password: <input type="text" name="password"></td>
+                    <td bgcolor=#C8C878>Password: <input type="password" name="password"></td>
                     <td bgcolor=#C8C878>Administrator<input type="checkbox" name="isAdmin"></td>
                     <td bgcolor=#C8C878><input type="submit" value="submit"></td></tr>
             </table>
@@ -51,7 +52,7 @@
         
         
         <hr>
-        <font size="6">Existning Farms</font><br>
+        <font size="6">Farms Management</font><br>
         <table border="1" bgcolor=#99FF66><tr>
         {% for farm in farms %}
             {% if loop.index%6==0  %}
@@ -69,7 +70,7 @@
         </table>
         <form id="myForm1" action="/ProcessFarm" enctype='multipart/form-data' method="post">
             <input type="hidden" name="token" value="{{token}}">
-            <h4>Create A Farm</h4>
+            <br><font size="4">Create A Farm</font>
             <p>Please note, a farm name must be unique.</p>
             <div><label for="farmName">Farm Name: </label><input type="text" id="farmName" name="farmName" required></div>
             <div><label for="farmImg">Farm Image: </label><input type="file" id="farmImg" name="farmImg" required></div>
@@ -109,27 +110,49 @@
             <br>
             <div><input type="submit" value="Save New Farm"></div><br>
         </form>
-        <hr>
         <form id="myForm2" action="/delete"  method="post">
             <input type="hidden" name="token" value="{{token}}">
-            <h4>Delete A Farm</h4>
+            <br><font size="4">Delete A Farm</font>
             <p>Please note, a farm name can include upper and lower case letters as well as blank spaces.</p>
             <div><label>Farm Name:</label><input type="text" id="name" name="name" required>
             <input type="submit" value="Delete Farm"></div>
         </form>
         <hr>
-        <br>
-        <form action="/report" method="post">
+        <font size="6">Reports</font><br>
+        <a href="/seed?token={{token}}">Seed Templete</a><br>
+        <a href="/chemical?token={{token}}">Chemical Templete</a><br>        <hr>
+        <font size="6">Reports</font><br>
+        <form action="/binreport" method="post">
              <input type="hidden" name="token" value="{{token}}">
-             <input type="submit" value="Report">
+             <br><font size='4'>Bins Report</font> <input type="submit" value="click">
+        </form >
+        <form action="/farmreport" method="post">
+            <input type="hidden" name="token" value="{{token}}">
+            <br><font size='4'>Farms Report</font><br>
+            <table border="0"><tr>
+            {% for farm in farms %}
+                {% if loop.index%6==0  %}
+                </tr><tr>
+                {% endif %}
+                <td>
+                    <input type="submit" value="{{farm.farmName}}" name="{{farm.farmName}}">
+                </td>
+            {% endfor %}
+            </tr>
+            </table>
         </form>
         <br>
-        <a href="http://usaskwef889.appspot.com/seed">Seed Templete</a><br>
-        <a href="http://usaskwef889.appspot.com/chemical">Chemical Templete</a><br>
-        <form action="/logout" method="get">
+        <hr>
+        <font size="6">Reset</font><br>
+        <form action="/reset" method="post">
             <input type="hidden" name="token" value="{{token}}">
-            <input type="submit" value="Logout">
+            User Name: <input type="text" name="userName"><br>
+            Password: <input type="password" name="password">
+            <input type="submit" value="Reset"><p style=color:red> This Action will erase data in the server include field's notes, bin's data and all other field's operations</p>
         </form>
+        
+        
+        
         
        
     </body>

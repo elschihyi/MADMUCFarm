@@ -1,0 +1,91 @@
+<html>
+	<head>
+        <title>Template Dashboard</title>
+	</head>
+	<style type = "text/css">
+        .input
+        {
+            position: absolute;
+            left: 170px;
+        }
+    
+    .link
+    {
+        margin-left:5px;
+        margin-right:5px;
+    }
+	</style>
+	<script>
+        
+        </script>
+	<body>
+        <div>
+            <form action = "/operations" method="post">
+                <input type="hidden" name="token" value="{{token}}">
+                <button type="submit"> Go Back Main Menu</button>
+            </form>
+        </div>
+        <div>
+            <form id="send" action="/saveseedtemplate">
+            <input type="hidden" name="token" value="{{token}}">
+                <h3>Seed Template</h3>
+                <p>
+                <label for="name">Seed Template Name *</label>
+                <input id="name" type="text" name="name" value=""  class="input"/>
+                </p>
+                
+                <p>
+                <label for="seedtype">Seed Type *</label>
+                <input id="seedtype" type="text" name="seedtype" value=""  class="input"/>
+                </p>
+                
+                <p>
+                <label for="tool">Implemented Used *</label>
+                <input id="tool" type="text" name="tool" value="" class="input"/>
+                </p>
+                
+                <p>
+                <label for="depth">Seeding Depth * (in)</label>
+                <input id="depth" type="text" name="depth" value="" class="input"/>
+                </p>
+                
+                <p>
+                <label for="varietyname">Variety Name *</label>
+                <input id="varietyname" type="text" name="varietyname" value="" class="input"/>
+                </p>
+                
+                <p>
+                <label for="seedrate"> Seed Rate (lbs/ac) *</label>
+                <input id="seedrate" type="text" name="seedrate" value="" class="input"/>
+                </p>
+                
+                <p>
+                <label for="nh3">NH3 (lbs/ac)*</label>
+                <input id="nh3" type="text" name="nh3" value="" class="input"/>
+                </p>
+                
+                <p>
+                <label for="11-52-20">11-52-20 (lbs/ac)*</label>
+                <input id="11-52-20" type="text" name="11-52-20" value="" class="input"/>
+                </p>
+                
+                <p>
+                <label for="seedtreatment"> Seed Treatment (lbs/ac)*</label>
+                <input id="seedtreatment" type="text" name="seedtreatment" value="" class="input"/>
+                </p>
+                
+                <p>
+                <button id="submit" type="submit" onclick="reloadPage()" = >Submit</button>
+                </p>
+            </form>
+        </div>
+        
+        <hr>
+        
+        <div>
+            <h3>Existing Templates</h3>
+            {{body}}
+        </div>
+	</body>
+	
+</html>

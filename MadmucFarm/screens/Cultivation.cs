@@ -25,7 +25,8 @@ namespace MadmucFarm
 
 		public Cultivation (string farmName,string fieldName,SQLiteConnection s) : base (UITableViewStyle.Grouped, null)
 		{
-			fieldID = farmName + "." + fieldName; 
+			fieldID = farmName +
+				"." + fieldName; 
 
 			sql = s;
 			sql.CreateTable<CultivationData> (); 
@@ -36,7 +37,7 @@ namespace MadmucFarm
 			depth = new FloatElementEx (0);
 
 			notes = new SimpleMultilineEntryElement (null, null); 
-
+			date.BackgroundColor = UIColor.White;
 			depth.UseCaptionForValueDisplay = true; 
 			depth.ShowCaption = true; 
 			depth.MinValue = 0;
@@ -109,7 +110,7 @@ namespace MadmucFarm
 					alert.Message = "No internet connection found. Your data has been saved to the device. Please try to sync later when you have a connection.";
 				} else {
 					//Connection available, begin sync with server.
-					var response = webClient.UploadString ("http://madmuctut1.appspot.com/Cultivation",
+					var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/Cultivation",
 					                                       "field=" + fieldID +
 					                                       "&date=" + date.DateValue.ToLongDateString() +
 					                                       "&implement=" + implement.Value +
@@ -149,13 +150,6 @@ namespace MadmucFarm
 			if(Global.isAdmin)
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (button), true);
 
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
-
 			//grab from database
 			var q = from x in sql.Table<CultivationData> ()
 				where x.DbField == this.fieldID
@@ -174,9 +168,9 @@ namespace MadmucFarm
 
 			}
 
-
-
 		}
+
+
 
 
 	}

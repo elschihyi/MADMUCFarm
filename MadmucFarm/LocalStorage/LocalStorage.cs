@@ -210,19 +210,21 @@ namespace MadmucFarm
 
 			var db = getLocalDB ();
 			var seeds = from sd in db.Table<SeedDB>() select sd;
-			if (seeds.Count () > 0) {
-				SeedDB s = new SeedDB ();
-				uploadSynch (s);
-				downloadSynch ("Seed");
-			} else {
+			if (seeds != null) {
+				if (seeds.Count () > 0) {
+					SeedDB s = new SeedDB ();
+					uploadSynch (s);
+					downloadSynch ("Seed");
+				} else {
 			
-				var seedInit = WebRequestManager.getWebRequestManager ().downloadAllSeed ();
+					var seedInit = WebRequestManager.getWebRequestManager ().downloadAllSeed ();
 
-				foreach (var seed in seedInit){
+					foreach (var seed in seedInit) {
 
-					db.Insert (seed);
+						db.Insert (seed);
+					}
+					db.Close ();
 				}
-				db.Close ();
 			}
 		}
 
@@ -234,21 +236,21 @@ namespace MadmucFarm
 
 			var db = getLocalDB ();
 			var chemicals = from ch in db.Table<ChemicalDB> () select ch;
-			if (chemicals.Count () > 0) {
-				ChemicalDB c = new ChemicalDB ();
-				uploadSynch (c);
-				downloadSynch ("Chemical");
-			} else {
-				var chemicalInit = WebRequestManager.getWebRequestManager ().downloadAllChemical ();
+			if (chemicals != null) {
+				if (chemicals.Count () > 0) {
+					ChemicalDB c = new ChemicalDB ();
+					uploadSynch (c);
+					downloadSynch ("Chemical");
+				} else {
+					var chemicalInit = WebRequestManager.getWebRequestManager ().downloadAllChemical ();
 
-				foreach (var chemical in chemicalInit)
-				{
-					db.Insert (chemical);
+					foreach (var chemical in chemicalInit) {
+						db.Insert (chemical);
+					}
+					db.Close ();
 				}
-				db.Close ();
+
 			}
-
-
 		}
 
 		public void uploadSynch (Object obj){

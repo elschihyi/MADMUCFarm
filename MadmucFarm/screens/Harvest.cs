@@ -39,6 +39,7 @@ namespace MadmucFarm
 
 			//The Elements with their variables
 			date = new DateElement (null, DateTime.Today);
+			date.BackgroundColor = UIColor.White;
 			implement = new EntryElement (null, "Which implement was used?", null);
 			yield = new FloatElementEx (0);
 			moisture = new FloatElementEx (0);
@@ -134,7 +135,7 @@ namespace MadmucFarm
 					alert.Message = "No internet connection found. Your data has been saved to the device. Please try to sync later when you have a connection.";
 				} else {
 					//Connection available, begin sync with server.
-					var response = webClient.UploadString ("http://madmuctut1.appspot.com/Harvest",
+					var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/Harvest",
 					                                       "field=" + fieldID +
 					                                       "&date=" + date.DateValue.ToLongDateString() +
 					                                       "&implement=" + implement.Value +
@@ -208,24 +209,18 @@ namespace MadmucFarm
 			if(Global.isAdmin)
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (button), true);
 
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
 			//var query = sql.Query("SELECT max(timeStamp) FROM HavestData",null);
 
 
 			//grab from database, according to the unique field ID
-			var query = from x in sql.Table<HarvestData> ()
+			var query2 = from x in sql.Table<HarvestData> ()
 				where x.DbField == this.fieldID
 					select x;
 
 
-			if (query.Count () != 0) {
+			if (query2.Count () != 0) {
 				//use the most recent data
-				var data = query.Last (); 
+				var data = query2.Last (); 
 				//populate viewcontroller with data
 				date.DateValue = data.DbDate;
 				implement.Value = data.DbImplement; 
@@ -239,6 +234,10 @@ namespace MadmucFarm
 
 			}
 		}
+
+		}
+
+		
 
 		//		public static bool IsJson (string input)
 		//		{ 
@@ -254,7 +253,7 @@ namespace MadmucFarm
 		//					select x; 
 		//
 		//			foreach (var obj in query) {
-		//				var response = webClient.UploadString ("http://madmuctut1.appspot.com/Harvest",
+		//				var response = webClient.UploadString ("http://madmucfarmserver.appspot.com/Harvest",
 		//				                                       "field=" + obj.DbField +
 		//					"&date=" + obj.DbDate.ToShortDateString () +
 		//					"&implement=" + obj.DbImplement +
@@ -303,5 +302,5 @@ namespace MadmucFarm
 		//				}
 		//			} 
 		//		}
-	}
+
 }
