@@ -33,10 +33,10 @@ namespace MadmucFarm
 
 			if(Synchronization.hasConnection()){
 
+				/*
 				var webRequest = WebRequestManager.getWebRequestManager();
 				webRequest.downloadSeedTemplate();
 				webRequest.downloadChemicalTemplate();
-				/*
 				Synchronization sync = new Synchronization ();
 				sync.downloadFarm();
 				*/
@@ -65,7 +65,9 @@ namespace MadmucFarm
 
 					LocalStorage.getLocalStorageManager().sychAllUnsychSeed();
 					LocalStorage.getLocalStorageManager().sychAllUnsychChemical();
-
+					var webRequest = WebRequestManager.getWebRequestManager();
+					webRequest.downloadSeedTemplate();
+					webRequest.downloadChemicalTemplate();
 
 					CreateTables();
 
@@ -105,7 +107,9 @@ namespace MadmucFarm
 
 						LocalStorage.getLocalStorageManager().sychAllUnsychSeed();
 						LocalStorage.getLocalStorageManager().sychAllUnsychChemical();
-
+						var webRequest = WebRequestManager.getWebRequestManager();
+						webRequest.downloadSeedTemplate();
+						webRequest.downloadChemicalTemplate();
 
 						CreateTables();
 
