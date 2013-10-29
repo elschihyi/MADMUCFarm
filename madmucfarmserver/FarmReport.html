@@ -14,12 +14,21 @@
         </form>
         <font size="6">Farm Report</font><br>
         <table border="1" id="farmtable">
-            <tr><td>LOCATIN</td><td>FIELD NAME</td><td>DATE</td><td>FIELD PART(note)</td><td>OPERATION</td><td>IMPLEMENT USED</td><td>DEPTH</td><td>SEED TYPE</td><td>SEED NAME</td><td>SEED RATE</td><td>SEED TRT.</td><td>CHEMICAL TYPE</td><td>CHEMICAL RATE</td><td>YIELD</td><tr>
+            <tr><td>LOCATIN</td><td>FIELD NAME</td><td>DATE</td><td>FIELD PART(note)</td><td>OPERATION</td><td>IMPLEMENT USED</td><td>DEPTH</td><td>SEED TYPE</td><td>SEED NAME</td><td>SEED RATE</td><td>SEED TRT.</td><td>CHEMICAL TYPE</td><td>CHEMICAL RATE</td><td>YIELD</td><td>Bin</td><td>Moisture</td><tr>
                 {% for seed in seeds %}
-                <tr><td>{{seed.farmName}}</td><td>{{seed.fieldName}}</td><td>{{seed.seedDate}}</td><td>{{seed.notes}}</td><td>Seed</td><td>{{seed.tool}}</td><td>{{seed.seedDepth}}</td><td>{{seed.seedType}}</td><td>{{seed.varietyName}}</td><td>{{seed.seedRate}}</td><td>{{seed.seedTreatment}}</td><td>11-51-0/NH3</td><td>{{seed.NH3}} /{{seed._11_52_20}}</td><td></td></tr>
+                <tr><td>{{seed.farmName}}</td><td>{{seed.fieldName}}</td><td>{{seed.seedDate}}</td><td>{{seed.notes}}</td><td>Seed</td><td>{{seed.tool}}</td><td>{{seed.seedDepth}}</td><td>{{seed.seedType}}</td><td>{{seed.varietyName}}</td><td>{{seed.seedRate}}</td><td>{{seed.seedTreatment}}</td><td>11-51-0/NH3</td><td>{{seed.NH3}} /{{seed._11_52_20}}</td><td></td><td></td><td></td></tr>
                 {% endfor %}
                 {% for chemical in chemicals %}
-                <tr><td>{{chemical.farmName}}</td><td>{{chemical.fieldName}}</td><td>{{chemical.chemicalDate}}</td><td>{{chemical.notes}}</td><td>Chemical Ap</td><td>{{chemical.tool}}</td><td></td><td></td><td></td><td></td><td></td><td>{{chemical.chemicalType}}</td><td>{{chemical.chemicalRate}}</td><td></td></tr>
+                <tr><td>{{chemical.farmName}}</td><td>{{chemical.fieldName}}</td><td>{{chemical.chemicalDate}}</td><td>{{chemical.notes}}</td><td>Chemical Ap</td><td>{{chemical.tool}}</td><td></td><td></td><td></td><td></td><td></td><td>{{chemical.chemicalType}}</td><td>{{chemical.chemicalRate}}</td><td></td><td></td><td></td></tr>
+                {% endfor %}
+                {% for harvest in harvests %}
+                <tr><td>{{harvest.farmName}}</td><td>{{harvest.field}}</td><td>{{harvest.date}}</td><td>{{harvest.notes}}</td><td>Harvest</td><td>{{harvest.implement}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>{{harvest.cropYield}}</td><td>{{harvest.bin}}</td><td>{{harvest.moisture}}</td></tr>
+                {% endfor %}
+                {% for cultivation in cultivations %}
+                <tr><td>{{cultivation.farmName}}</td><td>{{cultivation.field}}</td><td>{{cultivation.date}}</td><td>{{cultivation.notes}}</td><td>Cultivation</td><td>{{cultivation.implement}}</td><td>{{cultivation.depth}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                {% endfor %}
+                {% for soilTest in soilTests %}
+                <tr><td>{{soilTest.farmName}}</td><td>{{soilTest.field}}</td><td></td><td>{{soilTest.notes}}</td><td>Soil Test</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                 {% endfor %}
         </table>
         <button onclick="$('#farmtable').table2CSV()">CSV File</button>

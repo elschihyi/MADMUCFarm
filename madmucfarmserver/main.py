@@ -663,6 +663,9 @@ class FarmReport(webapp2.RequestHandler):
             return
         
         template_values={
+            'harvests':Harvest().all().filter("farmName =", self.request.get('farmName')),
+            'cultivations':Cultivation().all().filter("farmName =", self.request.get('farmName')),
+            'soilTests':SoilTest().all().filter("farmName =", self.request.get('farmName')),
             'seeds':SeedObject().all().filter("farmName =", self.request.get('farmName')),
             'chemicals':ChemicalObject().all().filter("farmName =", self.request.get('farmName')),
             'bins': Bin.query().order(Bin.binID),
@@ -734,6 +737,7 @@ class ProcessFarm(webapp2.RequestHandler):
 
 class Harvest(db.Model):
     
+    farmName = db.StringProperty()
     field = db.StringProperty()
     date = db.StringProperty()
     implement = db.StringProperty()
@@ -753,6 +757,7 @@ class ProcessHarvest(webapp2.RequestHandler):
             #No data on server, populate server
             harvest = Harvest()
             harvest.field = self.request.get('field')
+            harvest.farmName = harvest.field.split('.')[0]
             harvest.date = self.request.get('date')
             harvest.implement = self.request.get('implement')
             harvest.cropYield = self.request.get('cropYield')
@@ -799,6 +804,7 @@ class ProcessHarvestDownload(webapp2.RequestHandler):
 
 class Cultivation(db.Model):
     
+    farmName = db.StringProperty()
     field = db.StringProperty()
     date = db.StringProperty()
     implement = db.StringProperty()
@@ -816,6 +822,7 @@ class ProcessCultivation(webapp2.RequestHandler):
             #No data on server, populate server
             cultivation = Cultivation()
             cultivation.field = self.request.get('field')
+            cultivation.farmName = cultivation.field.split('.')[0]
             cultivation.date = self.request.get('date')
             cultivation.implement = self.request.get('implement')
             cultivation.depth = self.request.get('depth')
@@ -857,6 +864,7 @@ class ProcessCultivationDownload(webapp2.RequestHandler):
 
 class SoilTest(db.Model):
     
+    farmName = db.StringProperty()
     field = db.StringProperty()
     notes = db.StringProperty()
     stamp = db.StringProperty()
@@ -871,6 +879,7 @@ class ProcessSoilTest(webapp2.RequestHandler):
             #No data on server, populate server
             soilTest = SoilTest()
             soilTest.field = self.request.get('field')
+            soilTest.farmName = soilTest.field.split('.')[0]
             soilTest.notes = self.request.get('notes')
             soilTest.stamp = str(time.time())
             soilTest.put()
