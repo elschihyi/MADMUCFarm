@@ -108,14 +108,14 @@
             </div>
             <div><button id="addField" type="button">+</button><button id="removeField" type="button">-</button></div>
             <br>
-            <div><input type="submit" value="Save New Farm"></div><br>
+            <div><input type="submit" value="Save New Farm"></div><p style=color:red>Please try to add Farm only at the begining of the year after reset</p><br>
         </form>
         <form id="myForm2" action="/delete"  method="post">
             <input type="hidden" name="token" value="{{token}}">
             <br><font size="4">Delete A Farm</font>
             <p>Please note, a farm name can include upper and lower case letters as well as blank spaces.</p>
             <div><label>Farm Name:</label><input type="text" id="name" name="name" required>
-            <input type="submit" value="Delete Farm"></div>
+            <input type="submit" value="Delete Farm"></div><p style=color:red>Please try to add Farm only at the begining of the year after reset</p><br>
         </form>
         <hr>
         <font size="6">Templetes</font><br>

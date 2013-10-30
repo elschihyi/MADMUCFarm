@@ -22,13 +22,13 @@
                 <tr><td>{{chemical.farmName}}</td><td>{{chemical.fieldName}}</td><td>{{chemical.chemicalDate}}</td><td>{{chemical.notes}}</td><td>Chemical Ap</td><td>{{chemical.tool}}</td><td></td><td></td><td></td><td></td><td></td><td>{{chemical.chemicalType}}</td><td>{{chemical.chemicalRate}}</td><td></td><td></td><td></td></tr>
                 {% endfor %}
                 {% for harvest in harvests %}
-                <tr><td>{{harvest.farmName}}</td><td>{{harvest.field}}</td><td>{{harvest.date}}</td><td>{{harvest.notes}}</td><td>Harvest</td><td>{{harvest.implement}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>{{harvest.cropYield}}</td><td>{{harvest.bin}}</td><td>{{harvest.moisture}}</td></tr>
+                <tr><td>{{harvest.farmName}}</td><td>{{(harvest.field).split('.')[1]}}</td><td>{{harvest.date}}</td><td>{{harvest.notes}}</td><td>Harvest</td><td>{{harvest.implement}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>{{harvest.cropYield}}</td><td>{{harvest.bin}}</td><td>{{harvest.moisture}}</td></tr>
                 {% endfor %}
                 {% for cultivation in cultivations %}
-                <tr><td>{{cultivation.farmName}}</td><td>{{cultivation.field}}</td><td>{{cultivation.date}}</td><td>{{cultivation.notes}}</td><td>Cultivation</td><td>{{cultivation.implement}}</td><td>{{cultivation.depth}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>{{cultivation.farmName}}</td><td>{{(cultivation.field).split('.')[1]}}</td><td>{{cultivation.date}}</td><td>{{cultivation.notes}}</td><td>Cultivation</td><td>{{cultivation.implement}}</td><td>{{cultivation.depth}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                 {% endfor %}
                 {% for soilTest in soilTests %}
-                <tr><td>{{soilTest.farmName}}</td><td>{{soilTest.field}}</td><td></td><td>{{soilTest.notes}}</td><td>Soil Test</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>{{soilTest.farmName}}</td><td>{{(soilTest.field).split('.')[1]}}</td><td></td><td>{{soilTest.notes}}</td><td>Soil Test</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                 {% endfor %}
         </table>
         <button onclick="$('#farmtable').table2CSV()">CSV File</button>

@@ -662,6 +662,8 @@ class FarmReport(webapp2.RequestHandler):
             self.response.write(template.render(template_values))
             return
         
+        
+        
         template_values={
             'harvests':Harvest().all().filter("farmName =", self.request.get('farmName')),
             'cultivations':Cultivation().all().filter("farmName =", self.request.get('farmName')),
