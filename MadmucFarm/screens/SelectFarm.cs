@@ -54,46 +54,46 @@ namespace MadmucFarm
 				LoadingOverlay loadingOverlay=new LoadingOverlay (UIScreen.MainScreen.Bounds);
 				View.Add (loadingOverlay);
 
-				/*
-				if(!Reachability.IsHostReachable("www.google.com")){	
 
-					new UIAlertView ("Alert", "No internet connection detected. Please try again later.", null, "OK", null).Show ();
-				}else {
-					//sync farm
-					var sync=new Synchronization();
-					sync.downloadFarm();
+if(!Reachability.IsHostReachable("www.google.com")){	
 
-					LocalStorage.getLocalStorageManager().sychAllUnsychSeed();
-					LocalStorage.getLocalStorageManager().sychAllUnsychChemical();
-					var webRequest = WebRequestManager.getWebRequestManager();
-					webRequest.downloadSeedTemplate();
-					webRequest.downloadChemicalTemplate();
+						new UIAlertView ("Alert", "No internet connection detected. Please try again later.", null, "OK", null).Show ();
+					}else {
+						//sync farm
+						var sync=new Synchronization();
+						sync.downloadFarm();
 
-					CreateTables();
+						LocalStorage.getLocalStorageManager().sychAllUnsychSeed();
+						LocalStorage.getLocalStorageManager().sychAllUnsychChemical();
+						var webRequest = WebRequestManager.getWebRequestManager();
+						webRequest.downloadSeedTemplate();
+						webRequest.downloadChemicalTemplate();
 
-					//Upadate logged changes
-					SyncHarvest();
-					SyncCultivation();
-					SyncSoilTest();
+						CreateTables();
 
-					//Download other changes
-					DownloadHarest();
-					DownloadCultivation();
-					DownloadSoilTest();
+						//Upadate logged changes
+						SyncHarvest();
+						SyncCultivation();
+						SyncSoilTest();
+
+						//Download other changes
+						DownloadHarest();
+						DownloadCultivation();
+						DownloadSoilTest();
 
 
 
-					//sync is just those onject have upload flag true;
-					sync.syncBin();
-					sync.syncField();
-					sync.syncRainGuage();
+						//sync is just those onject have upload flag true;
+						sync.syncBin();
+						sync.syncField();
+						sync.syncRainGuage();
 
-					//download all current data
-					sync.downLoadBin();
-					sync.downLoadField();
-					sync.downLoadRainGuage();
-				}
-				*/
+						//download all current data
+						sync.downLoadBin();
+						sync.downLoadField();
+						sync.downLoadRainGuage();
+					}
+
 				Task.Factory.StartNew (
 					// tasks allow you to use the lambda syntax to pass work
 					() => {
